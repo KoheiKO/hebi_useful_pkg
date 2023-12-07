@@ -41,7 +41,7 @@ int main(int argc, char **argv) {
         // if (some_condition) {
         //     break;
         // }
-
+        
         ros::Rate(10).sleep();  // 10Hzでスリープ
     }
 
