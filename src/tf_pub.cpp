@@ -49,7 +49,7 @@ int main(int argc, char **argv) {
 
     // トピックのサブスクライバーの作成
     ros::Subscriber sub = node2.subscribe<tf2_msgs::TFMessage>("/tf", 100, t_Callback);
-    ros::Publisher pub = node2.advertise<hebi_useful_pkg::cur_position>("topic1",1000);
+    ros::Publisher pub = node2.advertise<hebi_useful_pkg::cur_position>("tf_topic",1000);
     
     // ROSループ
     while (ros::ok()) {

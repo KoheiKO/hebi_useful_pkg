@@ -51,11 +51,12 @@ find_package(catkin REQUIRED COMPONENTS
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-# add_message_files(
-#   FILES
-#   Message1.msg
-#   Message2.msg
-# )
+add_message_files(
+  FILES
+  joy_info.msg
+  cur_position.msg
+  
+)
 
 ## Generate services in the 'srv' folder
 # add_service_files(
@@ -240,3 +241,30 @@ src/joy2twist.cpp
 add_dependencies(joy2twist ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(joy2twist
 ${catkin_LIBRARIES})
+
+add_executable(joy2twist_button
+src/joy2twist_button.cpp
+)
+add_dependencies(joy2twist_button ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(joy2twist_button
+${catkin_LIBRARIES})
+
+add_executable(tf_pub
+src/tf_pub.cpp
+)
+add_dependencies(tf_pub ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(tf_pub
+${catkin_LIBRARIES})
+
+add_executable(joy_sub_node 
+src/joy_sub_node.cpp)
+add_dependencies(joy_sub_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(joy_sub_node
+  ${catkin_LIBRARIES})
+
+
+add_executable(joy_pubsub_node 
+src/joy_pubsub_node.cpp)
+add_dependencies(joy_pubsub_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(joy_pubsub_node
+  ${catkin_LIBRARIES})

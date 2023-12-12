@@ -7,7 +7,7 @@
 #include "hebi_cpp_api/group_command.hpp" // anable to send command
 #include "hebi_cpp_api/group_feedback.hpp" // anable to get feedback data from module
 
-#include "hebi_realsense/func.hpp"
+#include "hebi_useful_pkg/func.hpp"
 // /home/kohei/catkin_ws/src/hebi_tutorial/include/hebi_tutorial
 
 

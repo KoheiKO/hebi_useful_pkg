@@ -11,8 +11,8 @@
 
 #include <cmath> //enable to absolute value
 #include <unistd.h> //enable sleep
-#include "hebi_realsense/func.hpp"
-#include "hebi_realsense/set_name.hpp"
+#include "hebi_useful_pkg/func.hpp"
+#include "hebi_useful_pkg/set_name.hpp"
 
 #include <limits>
 
