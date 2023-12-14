@@ -53,9 +53,8 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate messages in the 'msg' folder
 add_message_files(
   FILES
-  joy_info.msg
   cur_position.msg
-  
+  steer_rot.msg
 )
 
 ## Generate services in the 'srv' folder
@@ -75,7 +74,8 @@ add_message_files(
 ## Generate added messages and services with any dependencies listed here
 generate_messages(
    DEPENDENCIES
-   geometry_msgs#   std_msgs
+   geometry_msgs
+   std_msgs
  )
 
 ################################################
@@ -181,7 +181,20 @@ include_directories(
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION}
-# )
+# )Errors     << hebi_useful_pkg:cmake /home/earth/catkin_ws/logs/hebi_useful_pkg/build.cmake.001.log               
+# CMake Error at /opt/ros/noetic/share/catkin/cmake/assert.cmake:20 (message):
+
+
+# Assertion failed: file
+# '/home/earth/catkin_ws/src/hebi_useful_pkg/msg/joy_info.msg' does not
+# exist.  Message: message file not found
+
+# Call Stack (most recent call first):
+# /opt/ros/noetic/share/genmsg/cmake/genmsg-extras.cmake:113 (assert_file_exists)
+# CMakeLists.txt:54 (add_message_files)
+
+
+
 
 ## Mark cpp header files for installation
 # install(DIRECTORY include/${PROJECT_NAME}/
@@ -263,8 +276,8 @@ target_link_libraries(joy_sub_node
   ${catkin_LIBRARIES})
 
 
-add_executable(joy_pubsub_node 
-src/joy_pubsub_node.cpp)
-add_dependencies(joy_pubsub_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(joy_pubsub_node
+add_executable(steer_rot 
+src/steer_rotation_pub.cpp)
+add_dependencies(steer_rot ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(steer_rot
   ${catkin_LIBRARIES})

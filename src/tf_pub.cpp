@@ -31,9 +31,16 @@ void t_Callback(const tf2_msgs::TFMessage::ConstPtr& msg) {
         auto rot_w = transformStamped.transform.rotation.w;
 
         // 回転角度の計算
-        roll = atan2(2 * (rot_x * rot_y + rot_w * rot_z), rot_w * rot_w - rot_x * rot_x - rot_y * rot_y + rot_z * rot_z);
-        pitch = asin(2 * (rot_w * rot_y - rot_x * rot_z));
-        yaw = atan2(2 * (rot_y * rot_z + rot_w * rot_x), rot_w * rot_w - rot_x * rot_x - rot_y * rot_y - rot_z * rot_z);
+        double sinr_cosp = 2.0 * (rot_w * rot_x + rot_y * rot_z);
+        double cosr_cosp = 1.0 - 2.0 * (rot_x * rot_x + rot_y * rot_y);
+        double roll = atan2(sinr_cosp, cosr_cosp);
+        
+        double sinp = 2.0 * (rot_w * rot_y - rot_z * rot_x);
+        double pitch = asin(sinp);
+        
+        double siny_cosp = 2.0 * (rot_w * rot_z + rot_x * rot_y);
+        double cosy_cosp = 1.0 - 2.0 * (rot_y * rot_y + rot_z * rot_z);
+        double yaw = atan2(siny_cosp, cosy_cosp);
 
         // 距離の計算
         distance = Euclid_distance(goal_x, x, goal_y, y);
