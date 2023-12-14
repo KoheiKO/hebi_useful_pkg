@@ -9,5 +9,10 @@
 void find_module();
 std::shared_ptr<hebi::Group> make_group(std::string FAMILY, std::string MODULE);
 
+void find_m3_module();
+// std::shared_ptr<hebi::Group> make_group(std::string FAMILY, std::string MODULE);
+// std::shared_ptr<hebi::Group> make_group(std::string FAMILY, std::vector<std::string> module_names);
+std::shared_ptr<hebi::Group> make_group(std::vector<std::string> families, std::vector<std::string> names);
+
 
 std::vector<Eigen::Vector2d> readCoordinates();

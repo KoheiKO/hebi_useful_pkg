@@ -39,11 +39,11 @@ int main(int argc, char **argv)
 {
   ros::init(argc, argv, "joy_pubsub_node");
   ros::NodeHandle nh;
-  ros::Subscriber sub = nh.subscribe("joy", 10, joy_callback);
+  ros::Subscriber sub = nh.subscribe("joy", 1000, joy_callback);
   ros::Publisher pub = nh.advertise<hebi_useful_pkg::joy_info>("joy_topic",1000);
 
 
-  ros::Rate loop_rate(10);
+  ros::Rate loop_rate(1000);
 
   while (ros::ok())
   {
