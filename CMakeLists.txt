@@ -55,6 +55,7 @@ add_message_files(
   FILES
   cur_position.msg
   steer_rot.msg
+  joy_info.msg
 )
 
 ## Generate services in the 'srv' folder
@@ -275,6 +276,11 @@ add_dependencies(joy_sub_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPOR
 target_link_libraries(joy_sub_node
   ${catkin_LIBRARIES})
 
+add_executable(joy_pubsub_node 
+src/joy_pubsub_node.cpp)
+add_dependencies(joy_pubsub_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(joy_pubsub_node
+  ${catkin_LIBRARIES})
 
 add_executable(steer_rot 
 src/steer_rotation_pub.cpp)
