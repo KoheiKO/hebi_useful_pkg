@@ -42,6 +42,9 @@ bool square;
 bool l1;
 bool r1;
 
+float steer_joy;
+float add_rad;
+
 // hebi_intrusion::M3_msg Flag_status;
 hebi_useful_pkg::joy_info joy_info;
 
@@ -129,12 +132,23 @@ int main(int argc, char **argv){
     Eigen::VectorXd Steer_position_rad(Steer_group->size());
     Eigen::VectorXd Steer_position_deg(Steer_group->size());
     Eigen::VectorXd Steer_rotation_rad(Steer_group->size());
+    Eigen::VectorXd Steer_position_rotation_here(Steer_group->size());
+    Eigen::VectorXd Steer_position_rotation_here_rad(Steer_group->size());
+    
 
     // Eigen::VectorXd Steer_position_initial_pos45(Steer_group->size());
 
     Eigen::VectorXd Steer_position_initial_rad(Steer_group->size());
     // Eigen::MatrixXd Steer_position_deg( Steer_group->size(),coordinates.size() - 1 );
     // Eigen::MatrixXd Steer_position_rad( Steer_group->size(),coordinates.size() - 1 );
+
+    Eigen::VectorXd sus_FB_rad(Sus_group->size());
+    Eigen::VectorXd sus_FB_now_rad(Sus_group->size());
+    
+    Eigen::VectorXd sus_FB_deg(Steer_group->size());
+    Eigen::VectorXd sus_add_deg(Steer_group->size());
+    Eigen::VectorXd sus_add_rad(Steer_group->size());
+    Eigen::VectorXd sus_rad(Steer_group->size());
 
     Eigen::VectorXd steer_FB_rad(Steer_group->size());
     Eigen::VectorXd steer_FB_deg(Steer_group->size());
@@ -149,8 +163,8 @@ int main(int argc, char **argv){
 
 
     //set Steer Position
-    // Steer_position_initial_deg << -90, 0, 90, 180 ; // [degree]
-    Steer_position_initial_deg << 0, 0, 0, 0 ; // [degree]
+    Steer_position_initial_deg << -90, 0, 90, 180 ; // [degree]
+    // Steer_position_initial_deg << 0, 0, 0, 0 ; // [degree]
 
 
     std::cout << "OK" << std::endl;
@@ -163,6 +177,7 @@ int main(int argc, char **argv){
     
 
     hebi::GroupCommand Wheel_group_command(Wheel_group->size());
+    
     Wheel_group_command.setVelocity(Wheel_velocities);
 
     // Steer_group_command.setVelocity(Steer_velocities);
@@ -176,50 +191,108 @@ int main(int argc, char **argv){
 
  
     Wheel_group->getNextFeedback(Wheel_feedback);
+    Steer_group->getNextFeedback(Steer_feedback);
+    Sus_group->getNextFeedback(Sus_feedback);
     Eigen::VectorXd wheel_initial_positions = Wheel_feedback.getPosition();
-
-
-
 
 
     Wheel_group->setFeedbackFrequencyHz(1000); // set time of feedback
     Steer_group->setFeedbackFrequencyHz(1000);
     Sus_group->setFeedbackFrequencyHz(1000);
  
-
-    // hebi_intrusion::M3_msg pub_msg;
-    ros::Rate loop_rate(1000); // send ros command 0.1 Hz(should be shorter than 1/5 Hz)
-    // bool Flag = false;
-
+    sus_FB_rad = Sus_feedback.getPosition(); // [degree]
+    sus_FB_deg = (sus_FB_rad.array() / M_PI * 180.0) ;
     
+    // hebi_intrusion::M3_msg pub_msg;
+    ros::Rate loop_rate(100); // send ros command 0.1 Hz(should be shorter than 1/5 Hz)
+    // bool Flag = false;
+    // std::cout << "sus_FB_rad = " << sus_FB_rad << std::endl;
+
             
     while (ros::ok()) {
             ros::spinOnce();    
             loop_rate.sleep();
 
-            Wheel_velocities << joy_info.l_v,joy_info.l_v,joy_info.l_v,joy_info.l_v; // [rad/s] 
-            Wheel_velocities *= 10;
-            // Steer_position_deg << -90, 0, 90, 180 ; // [degree]
-            Steer_rotation_rad << joy_info.l_h ,joy_info.l_h, joy_info.l_h, joy_info.l_h;
-            Wheel_velocities *= 0.2;
-            Steer_position_rad = (Steer_position_deg.array() * M_PI / 180.0 + Steer_rotation_rad.array()) ;
-            hebi::GroupCommand Wheel_group_command(Wheel_group->size());
 
 
-            Wheel_group_command.setVelocity(Wheel_velocities);
-            Wheel_group->sendCommand(Wheel_group_command);
+            
+            
 
-            // Sus_position_move << 0.1, 0.77, 0.29, 0.56;
+            // if (joy_info.triangle == 1){
+            //     add_rad +=  joy_info.triangle * 0.01;
+            //     sus_add_rad << add_rad  ,add_rad, add_rad, add_rad;
+                
+            //     sus_rad = (sus_FB_deg.array() * M_PI / 180.0 + sus_add_rad.array()) ;
+            //     Sus_group_command.setPosition(sus_rad);
+                
+
+            // }
+            
+            // else if (joy_info.cross == 1){
+            //     add_rad +=  -joy_info.cross * 0.01;
+            //     sus_add_rad << add_rad  ,add_rad, add_rad, add_rad;
+                
+            //     sus_rad = (sus_FB_deg.array() * M_PI / 180.0 + sus_add_rad.array()) ;
+            //     Sus_group_command.setPosition(sus_rad);
+                
+
+            // }
 
 
-            // start_time = std::chrono::steady_clock::now();
+            if (joy_info.circle == 1){
+                Steer_position_rotation_here << 0, 0, 0, 0 ; // [degree]
+                Steer_position_rotation_here_rad = (Steer_position_rotation_here.array() * M_PI / 180.0) ;
+                Steer_group_command.setPosition(Steer_position_rotation_here_rad);
+                Wheel_velocities << joy_info.l_v,joy_info.l_v,joy_info.l_v,joy_info.l_v; // [rad/s] 
+                Wheel_velocities *= 2;
+                Wheel_group_command.setVelocity(Wheel_velocities);
 
-            //send steer_position to hebi
+            }
+            
+            else if (joy_info.r1 == 1){
+                Steer_position_rotation_here << -90, 0, 90, 180 ; // [degree]
+                Steer_position_rotation_here_rad = (Steer_position_rotation_here.array() * M_PI / 180.0) ;
 
-            Steer_group_command.setPosition(Steer_position_rad);
+                steer_joy = 0;
+                Steer_group_command.setPosition(Steer_position_rotation_here_rad);
+                // Wheel_velocities << joy_info.l_v,joy_info.l_v,joy_info.l_v,joy_info.l_v; // [rad/s] 
+                // Wheel_velocities *= 2;
+                // Wheel_group_command.setVelocity(Wheel_velocities);
+
+            }
+                
+            
+
+            else {
+                Wheel_velocities << joy_info.l_v,joy_info.l_v,joy_info.l_v,joy_info.l_v; // [rad/s] 
+                Wheel_velocities *= 2;
+                Wheel_group_command.setVelocity(Wheel_velocities);
+                Steer_position_deg << -90, 0, 90, 180 ; // [degree]
+                steer_joy += -joy_info.l_h * 0.01;
+
+                Steer_rotation_rad << steer_joy  ,steer_joy, steer_joy, steer_joy;
+                
+                Steer_position_rad = (Steer_position_deg.array() * M_PI / 180.0 + Steer_rotation_rad.array()) ;
+                Steer_group_command.setPosition(Steer_position_rad);
+                
+                
+                // hebi::GroupFeedback Sus_feedback(Sus_group->size());
+                // Sus_group->getNextFeedback(Sus_feedback);
+                // sus_FB_now_rad = Sus_feedback.getPosition(); // [degree]
+                // Sus_group_command.setPosition(sus_FB_now_rad);
+
+                
+            }
+
+
+            std::cout << "steer_joy = " << steer_joy << std::endl;
             Steer_group->sendCommand(Steer_group_command);
 
-            Steer_group->getNextFeedback(Steer_feedback);
+            Wheel_group->sendCommand(Wheel_group_command);
+
+            Sus_group->sendCommand(Sus_group_command);
+
+            // Steer_group->getNextFeedback(Steer_feedback);
 
 
     }

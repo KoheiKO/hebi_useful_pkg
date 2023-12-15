@@ -18,6 +18,12 @@
             type="joy_pubsub_node"
             output="screen">
         </node>
+        
+        <node pkg="hebi_useful_pkg" 
+            name="m3_joy" 
+            type="m3_joy"
+            output="screen">
+        </node>
 
 
 
@@ -32,4 +38,4 @@
 
 
 
-</launch>
+</launch>hebi_useful_pkg
