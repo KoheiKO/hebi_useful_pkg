@@ -211,9 +211,9 @@ int main(int argc, char **argv){
     // bool Flag = false;
     // std::cout << "sus_FB_rad = " << sus_FB_rad << std::endl;
     
-    std::cout << "push R1 : Turn towards leg-1 "  << std::endl;
-    std::cout << "push R1 : Turn towards leg-1 "  << std::endl;
-    std::cout << "push L1 : Compaction mode "  << std::endl;
+    std::cout << "push ◯ : 旋回モード "  << std::endl;
+    std::cout << "push R1 : 直進モード(Leg-1方向) "  << std::endl;
+    std::cout << "push L1 : 転圧モード(Leg-2,3方向) "  << std::endl;
 
             
     while (ros::ok()) {
