@@ -207,6 +207,10 @@ int main(int argc, char **argv){
     ros::Rate loop_rate(100); // send ros command 0.1 Hz(should be shorter than 1/5 Hz)
     // bool Flag = false;
     // std::cout << "sus_FB_rad = " << sus_FB_rad << std::endl;
+    
+    std::cout << "push R1 : Turn towards leg-1 "  << std::endl;
+    std::cout << "push R1 : Turn towards leg-1 "  << std::endl;
+    std::cout << "push L1 : Compaction mode "  << std::endl;
 
             
     while (ros::ok()) {
@@ -251,6 +255,19 @@ int main(int argc, char **argv){
             
             else if (joy_info.r1 == 1){
                 Steer_position_rotation_here << -90, 0, 90, 180 ; // [degree]
+                Steer_position_rotation_here_rad = (Steer_position_rotation_here.array() * M_PI / 180.0) ;
+
+                steer_joy = 0;
+                Steer_group_command.setPosition(Steer_position_rotation_here_rad);
+                // Wheel_velocities << joy_info.l_v,joy_info.l_v,joy_info.l_v,joy_info.l_v; // [rad/s] 
+                // Wheel_velocities *= 2;
+                // Wheel_group_command.setVelocity(Wheel_velocities);
+
+            }
+
+            else if (joy_info.l1 == 1){
+
+                Steer_position_rotation_here << 45, 135, -135 , -45 ; // [degree]
                 Steer_position_rotation_here_rad = (Steer_position_rotation_here.array() * M_PI / 180.0) ;
 
                 steer_joy = 0;
