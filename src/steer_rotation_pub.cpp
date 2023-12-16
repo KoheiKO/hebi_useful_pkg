@@ -59,7 +59,7 @@ int main(int argc, char **argv){
     time_in_seconds = current_time.toSec();
     // トピックのサブスクライバーの作成
     ros::Subscriber sub = steer_rot.subscribe<tf2_msgs::TFMessage>("/tf", 100, t_Callback);
-    ros::Publisher pub = steer_rot.advertise<hebi_useful_pkg::steer_rot>("steer_rot",1000);
+    ros::Publisher pub = steer_rot.advertise<hebi_useful_pkg::steer_rot>("/steer_rot",1000);
     
     // ROSループ
     while (ros::ok()) {

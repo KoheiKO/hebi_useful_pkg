@@ -282,10 +282,10 @@ add_dependencies(joy_pubsub_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EX
 target_link_libraries(joy_pubsub_node
   ${catkin_LIBRARIES})
 
-add_executable(steer_rot 
+add_executable(steer_rotation_pub 
 src/steer_rotation_pub.cpp)
-add_dependencies(steer_rot ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(steer_rot
+add_dependencies(steer_rotation_pub ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(steer_rotation_pub
   ${catkin_LIBRARIES}
   )
 

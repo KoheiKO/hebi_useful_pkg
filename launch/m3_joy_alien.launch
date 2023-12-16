@@ -19,7 +19,11 @@
             output="screen">
         </node>
         
-
+        <node pkg="hebi_useful_pkg" 
+            name="steer_rotation_pub" 
+            type="steer_rotation_pub"
+            output="screen">
+        </node>
 
 
         <node pkg="joy" 

@@ -1,15 +1,5 @@
 <launch>
 
-
-    <node pkg="hebi_useful_pkg" 
-        name="m3_joy" 
-        type="m3_joy"
-        output="screen">
-    </node>
-
-
-
-
     <arg name="serial_no"           default=""/>
     <arg name="usb_port_id"         default=""/>
     <arg name="device_type"         default="t265"/>
@@ -69,6 +59,20 @@
         <arg name="publish_odom_tf"          value="$(arg publish_odom_tf)"/>
         </include>
     </group>
+
+    <node pkg="leptrino_ros_pkg" 
+        name="leptrino" 
+        type="leptrino"
+        output="screen">
+    </node>
+    <node pkg="hebi_useful_pkg" 
+        name="m3_joy" 
+        type="m3_joy"
+        output="screen">
+    </node>
+
+
+
 
 
 </launch>
