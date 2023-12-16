@@ -42,7 +42,10 @@ bool square;
 bool l1;
 bool r1;
 
-float steer_joy;
+float steer_joy_1;
+float steer_joy_2;
+float steer_joy_3;
+float steer_joy_4;
 float add_rad;
 
 // hebi_intrusion::M3_msg Flag_status;
@@ -247,6 +250,10 @@ int main(int argc, char **argv){
                 Steer_position_rotation_here << 0, 0, 0, 0 ; // [degree]
                 Steer_position_rotation_here_rad = (Steer_position_rotation_here.array() * M_PI / 180.0) ;
                 Steer_group_command.setPosition(Steer_position_rotation_here_rad);
+                steer_joy_1 = 90 * M_PI / 180.0;
+                steer_joy_2 = 0 * M_PI / 180.0;
+                steer_joy_3 = -90 * M_PI / 180.0;
+                steer_joy_4 = -180*  M_PI / 180.0;
                 Wheel_velocities << joy_info.l_v,joy_info.l_v,joy_info.l_v,joy_info.l_v; // [rad/s] 
                 Wheel_velocities *= 2;
                 Wheel_group_command.setVelocity(Wheel_velocities);
@@ -257,7 +264,10 @@ int main(int argc, char **argv){
                 Steer_position_rotation_here << -90, 0, 90, 180 ; // [degree]
                 Steer_position_rotation_here_rad = (Steer_position_rotation_here.array() * M_PI / 180.0) ;
 
-                steer_joy = 0;
+                steer_joy_1 = 0;
+                steer_joy_2 = 0;
+                steer_joy_3 = 0;
+                steer_joy_4 = 0;
                 Steer_group_command.setPosition(Steer_position_rotation_here_rad);
                 // Wheel_velocities << joy_info.l_v,joy_info.l_v,joy_info.l_v,joy_info.l_v; // [rad/s] 
                 // Wheel_velocities *= 2;
@@ -267,11 +277,15 @@ int main(int argc, char **argv){
 
             else if (joy_info.l1 == 1){
 
-                Steer_position_rotation_here << 90, 180, -90 , 0 ; // [degree]
+                Steer_position_rotation_here << 135, 225, -45 , 45 ; // [degree]
                 Steer_position_rotation_here_rad = (Steer_position_rotation_here.array() * M_PI / 180.0) ;
 
                 steer_joy = 0;
                 Steer_group_command.setPosition(Steer_position_rotation_here_rad);
+                steer_joy_1 = -135 * M_PI / 180.0;
+                steer_joy_2 = -135 * M_PI / 180.0;
+                steer_joy_3 = -135 * M_PI / 180.0;
+                steer_joy_4 = -135*  M_PI / 180.0;
                 Wheel_velocities << joy_info.l_v,joy_info.l_v,joy_info.l_v,joy_info.l_v; // [rad/s] 
                 Wheel_velocities *= 2;
                 Wheel_group_command.setVelocity(Wheel_velocities);
@@ -288,9 +302,11 @@ int main(int argc, char **argv){
                 Wheel_velocities *= 2;
                 Wheel_group_command.setVelocity(Wheel_velocities);
                 Steer_position_deg << -90, 0, 90, 180 ; // [degree]
-                steer_joy += -joy_info.l_h * 0.01;
-
-                Steer_rotation_rad << steer_joy  ,steer_joy, steer_joy, steer_joy;
+                steer_joy_1 += -joy_info.l_h * 0.01;
+                steer_joy_2 += -joy_info.l_h * 0.01;
+                steer_joy_3 += -joy_info.l_h * 0.01;
+                steer_joy_4 += -joy_info.l_h * 0.01;
+                Steer_rotation_rad << steer_joy_1  ,steer_joy_2, steer_joy_3, steer_joy_4;
                 
                 Steer_position_rad = (Steer_position_deg.array() * M_PI / 180.0 + Steer_rotation_rad.array()) ;
                 Steer_group_command.setPosition(Steer_position_rad);
