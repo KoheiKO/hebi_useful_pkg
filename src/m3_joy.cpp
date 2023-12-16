@@ -176,7 +176,7 @@ int main(int argc, char **argv){
     Steer_position_initial_rad = (Steer_position_initial_deg.array() * M_PI / 180.0) ;
     Steer_position_rad = (Steer_position_deg.array() * M_PI / 180.0) ;
 
-    std::cout <<  Steer_position_rad <<std::endl;
+    // std::cout <<  Steer_position_rad <<std::endl;
     
 
     hebi::GroupCommand Wheel_group_command(Wheel_group->size());
