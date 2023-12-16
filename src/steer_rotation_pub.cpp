@@ -53,7 +53,7 @@ void t_Callback(const tf2_msgs::TFMessage::ConstPtr& msg) {
 
 int main(int argc, char **argv){
     // ROSノードの初期化
-    ros::init(argc, argv, "transform_subscriber");
+    ros::init(argc, argv, "steer_rotation_pub");
     ros::NodeHandle steer_rot;
     ros::Time current_time = ros::Time::now();
     time_in_seconds = current_time.toSec();
