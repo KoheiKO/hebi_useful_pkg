@@ -279,8 +279,6 @@ int main(int argc, char **argv){
 
                 Steer_position_rotation_here << 135, 225, -45 , 45 ; // [degree]
                 Steer_position_rotation_here_rad = (Steer_position_rotation_here.array() * M_PI / 180.0) ;
-
-                steer_joy = 0;
                 Steer_group_command.setPosition(Steer_position_rotation_here_rad);
                 steer_joy_1 = -135 * M_PI / 180.0;
                 steer_joy_2 = -135 * M_PI / 180.0;
