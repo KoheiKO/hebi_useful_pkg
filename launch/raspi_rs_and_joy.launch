@@ -7,11 +7,7 @@
         output="screen">
     </node>
 
-    <node pkg="hebi_useful_pkg" 
-        name="steer_rot" 
-        type="steer_rotation_pub"
-        output="screen">
-    </node>
+
 
 
     <arg name="serial_no"           default=""/>
