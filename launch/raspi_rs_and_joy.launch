@@ -71,6 +71,15 @@
         output="screen">
     </node>
 
+    
+    <node pkg="hebi_intrusion" 
+        name="m3_autonomous" 
+        type="m3_autonomous"
+        output="screen">
+    </node> 
+
+
+
 
 
 

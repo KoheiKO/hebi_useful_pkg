@@ -25,9 +25,9 @@ void t_Callback(const tf2_msgs::TFMessage::ConstPtr& msg) {
     // 最初のトランスフォームの情報だけを処理
     if (!msg->transforms.empty()) {
         const auto& transformStamped = msg->transforms[0];
-        ROS_INFO("Received transform message:");
-        ROS_INFO("Translation: x=%f, y=%f, z=%f", transformStamped.transform.translation.x, transformStamped.transform.translation.y, transformStamped.transform.translation.z);
-        ROS_INFO("Rotation: x=%f, y=%f, z=%f, w=%f", transformStamped.transform.rotation.x, transformStamped.transform.rotation.y, transformStamped.transform.rotation.z, transformStamped.transform.rotation.w);
+        // ROS_INFO("Received transform message:");
+        // ROS_INFO("Translation: x=%f, y=%f, z=%f", transformStamped.transform.translation.x, transformStamped.transform.translation.y, transformStamped.transform.translation.z);
+        // ROS_INFO("Rotation: x=%f, y=%f, z=%f, w=%f", transformStamped.transform.rotation.x, transformStamped.transform.rotation.y, transformStamped.transform.rotation.z, transformStamped.transform.rotation.w);
         x = transformStamped.transform.translation.x;
         y = transformStamped.transform.translation.y;
         double rot_x = transformStamped.transform.rotation.x;
@@ -69,7 +69,8 @@ int main(int argc, char **argv){
         auto theta = atan2((goal_y-y),(goal_x-x));
         auto steer_rot=-delta_yaw + theta;
         auto st_rot_de= steer_rot* 180/M_PI;
-
+        msg.x_pos = x;
+        msg.y_pos = y;
         msg.steer_rot = steer_rot;
         msg.theta = theta;
         msg.delta_yaw = delta_yaw;
