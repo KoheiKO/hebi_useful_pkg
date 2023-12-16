@@ -286,7 +286,8 @@ add_executable(steer_rot
 src/steer_rotation_pub.cpp)
 add_dependencies(steer_rot ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(steer_rot
-  ${catkin_LIBRARIES})
+  ${catkin_LIBRARIES}
+  )
 
 add_executable(m3_joy 
 src/m3_joy.cpp

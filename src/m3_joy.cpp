@@ -167,7 +167,7 @@ int main(int argc, char **argv){
     // Steer_position_initial_deg << 0, 0, 0, 0 ; // [degree]
 
 
-    std::cout << "OK" << std::endl;
+    // std::cout << "OK" << std::endl;
 
 
     Steer_position_initial_rad = (Steer_position_initial_deg.array() * M_PI / 180.0) ;
@@ -285,7 +285,7 @@ int main(int argc, char **argv){
             }
 
 
-            std::cout << "steer_joy = " << steer_joy << std::endl;
+            // std::cout << "steer_joy = " << steer_joy << std::endl;
             Steer_group->sendCommand(Steer_group_command);
 
             Wheel_group->sendCommand(Wheel_group_command);
