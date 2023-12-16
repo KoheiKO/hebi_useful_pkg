@@ -1,7 +1,15 @@
 <launch>
+
+
     <node pkg="hebi_useful_pkg" 
         name="m3_joy" 
         type="m3_joy"
+        output="screen">
+    </node>
+
+    <node pkg="hebi_useful_pkg" 
+        name="steer_rot" 
+        type="steer_rotation_pub"
         output="screen">
     </node>
 
