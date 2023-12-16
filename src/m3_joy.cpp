@@ -267,11 +267,14 @@ int main(int argc, char **argv){
 
             else if (joy_info.l1 == 1){
 
-                Steer_position_rotation_here << 45, 135, -135 , -45 ; // [degree]
+                Steer_position_rotation_here << 90, 180, -90 , 0 ; // [degree]
                 Steer_position_rotation_here_rad = (Steer_position_rotation_here.array() * M_PI / 180.0) ;
 
                 steer_joy = 0;
                 Steer_group_command.setPosition(Steer_position_rotation_here_rad);
+                Wheel_velocities << joy_info.l_v,joy_info.l_v,joy_info.l_v,joy_info.l_v; // [rad/s] 
+                Wheel_velocities *= 2;
+                Wheel_group_command.setVelocity(Wheel_velocities);
                 // Wheel_velocities << joy_info.l_v,joy_info.l_v,joy_info.l_v,joy_info.l_v; // [rad/s] 
                 // Wheel_velocities *= 2;
                 // Wheel_group_command.setVelocity(Wheel_velocities);
