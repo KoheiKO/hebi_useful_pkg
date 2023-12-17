@@ -312,7 +312,7 @@ int main(int argc, char **argv){
                 
             
 
-            else if ( joy_info.l_v > 0 || joy_info.l_h )  { 
+            else if ( joy_info.l_v > 0 || joy_info.l_h > 0 )  { 
                 Wheel_velocities << joy_info.l_v,joy_info.l_v,joy_info.l_v,joy_info.l_v; // [rad/s] 
                 Wheel_velocities *= 2;
                 Wheel_group_command.setVelocity(Wheel_velocities);
@@ -333,6 +333,14 @@ int main(int argc, char **argv){
                 // Sus_group_command.setPosition(sus_FB_now_rad);
 
                 
+            }
+            else {
+                w_v = 0;
+                Wheel_velocities << w_v ,w_v ,w_v ,w_v;
+                // Wheel_velocities *= 0.5;
+                Wheel_group_command.setVelocity(Wheel_velocities);
+
+
             }
 
 
