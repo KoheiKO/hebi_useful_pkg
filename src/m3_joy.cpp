@@ -303,7 +303,7 @@ int main(int argc, char **argv){
 
             }
             else if (joy_info.dir_down == 1){
-                w_v += joy_info.dir_up * -0.2;
+                w_v += joy_info.dir_down * -0.2;
                 Wheel_velocities << w_v ,w_v ,w_v ,w_v;
                 // Wheel_velocities *= 0.5;
                 Wheel_group_command.setVelocity(Wheel_velocities);
@@ -312,7 +312,7 @@ int main(int argc, char **argv){
                 
             
 
-            else if ( joy_info.l_v > 0 || joy_info.l_h > 0 )  { 
+            else if ( joy_info.l_v != 0 || joy_info.l_h != 0 )  { 
                 Wheel_velocities << joy_info.l_v,joy_info.l_v,joy_info.l_v,joy_info.l_v; // [rad/s] 
                 Wheel_velocities *= 2;
                 Wheel_group_command.setVelocity(Wheel_velocities);
