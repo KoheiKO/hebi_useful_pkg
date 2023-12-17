@@ -296,14 +296,14 @@ int main(int argc, char **argv){
             }
 
             else if (joy_info.dir_up == 1){
-                w_v = joy_info.dir_up * 0.1;
+                w_v = joy_info.dir_up * 0.5;
                 Wheel_velocities << w_v ,w_v ,w_v ,w_v;
                 // Wheel_velocities *= 0.5;
                 Wheel_group_command.setVelocity(Wheel_velocities);
 
             }
             else if (joy_info.dir_down == 1){
-                w_v = joy_info.dir_down * -0.1;
+                w_v = joy_info.dir_down * -0.5;
                 Wheel_velocities << w_v ,w_v ,w_v ,w_v;
                 // Wheel_velocities *= 0.5;
                 Wheel_group_command.setVelocity(Wheel_velocities);
