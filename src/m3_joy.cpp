@@ -47,6 +47,7 @@ float steer_joy_2;
 float steer_joy_3;
 float steer_joy_4;
 float add_rad;
+float w_v;
 
 // hebi_intrusion::M3_msg Flag_status;
 hebi_useful_pkg::joy_info joy_info;
@@ -68,6 +69,8 @@ void FlagCallback(const hebi_useful_pkg::joy_info msg)
     joy_info.square = msg.square;
     joy_info.l1 = msg.l1;
     joy_info.r1 = msg.r1;
+    joy_info.dir_up = msg.dir_up;
+    joy_info.dir_down = msg.dir_down;
 
     // ROS_INFO("M3_Received value: %d", Flag_status.status);
 }
@@ -172,7 +175,6 @@ int main(int argc, char **argv){
 
     // std::cout << "OK" << std::endl;
 
-
     Steer_position_initial_rad = (Steer_position_initial_deg.array() * M_PI / 180.0) ;
     Steer_position_rad = (Steer_position_deg.array() * M_PI / 180.0) ;
 
@@ -208,7 +210,7 @@ int main(int argc, char **argv){
     
     // hebi_intrusion::M3_msg pub_msg;
     ros::Rate loop_rate(100); // send ros command 0.1 Hz(should be shorter than 1/5 Hz)
-    // bool Flag = false;
+    // bool Flag w_v= false;
     // std::cout << "sus_FB_rad = " << sus_FB_rad << std::endl;
     
     std::cout << "push ◯ : 旋回モード "  << std::endl;
@@ -290,6 +292,21 @@ int main(int argc, char **argv){
                 // Wheel_velocities << joy_info.l_v,joy_info.l_v,joy_info.l_v,joy_info.l_v; // [rad/s] 
                 // Wheel_velocities *= 2;
                 // Wheel_group_command.setVelocity(Wheel_velocities);
+
+            }
+
+            else if (joy_info.dir_up == 1){
+                w_v += joy_info.dir_up * 0.2;
+                Wheel_velocities << w_v ,w_v ,w_v ,w_v;
+                Wheel_velocities *= 0.5;
+                Wheel_group_command.setVelocity(Wheel_velocities);
+
+            }
+            else if (joy_info.dir_down == 1){
+                w_v += joy_info.dir_up * -0.2;
+                Wheel_velocities << w_v ,w_v ,w_v ,w_v;
+                Wheel_velocities *= 0.5;
+                Wheel_group_command.setVelocity(Wheel_velocities);
 
             }
                 

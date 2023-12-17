@@ -61,24 +61,24 @@ int main(int argc, char **argv){
     ros::Subscriber sub = steer_rot.subscribe<tf2_msgs::TFMessage>("/tf", 100, t_Callback);
     ros::Publisher pub = steer_rot.advertise<hebi_useful_pkg::steer_rot>("/steer_rot",1000);
     
-    // ROSループ
+    ros::Rate loop_rate(100);  // Set the loop rate to 100Hz
+
     while (ros::ok()) {
         hebi_useful_pkg::steer_rot msg;
-        auto delta_yaw = yaw-ini_yaw;
-        //((ini_x-goal_x)*(x-goal_x)+(ini_y-goal_y)*(y-goal_y))/(sqrt(pow(ini_x-goal_x,2)+ pow(ini_y-goal_y,2))*sqrt(pow(x-goal_x,2)+ pow(y-goal_y,2)))
-        auto theta = atan2((goal_y-y),(goal_x-x));
-        auto steer_rot=-delta_yaw + theta;
-        auto st_rot_de= steer_rot* 180/M_PI;
+        auto delta_yaw = yaw - ini_yaw;
+        auto theta = atan2((goal_y - y), (goal_x - x));
+        auto steer_rot = -delta_yaw + theta;
+        auto st_rot_de = steer_rot * 180 / M_PI;
         msg.x_pos = x;
         msg.y_pos = y;
         msg.steer_rot = steer_rot;
         msg.theta = theta;
         msg.delta_yaw = delta_yaw;
-        msg.steer_rot_degree=st_rot_de;
+        msg.steer_rot_degree = st_rot_de;
         pub.publish(msg);
-  
-        ros::spinOnce();  // コールバック関数を呼び出す   
-        ros::Rate(1).sleep(); 
+
+        ros::spinOnce();
+        loop_rate.sleep();  // Sleep to achieve the desired loop rate
     }
 
     return 0;

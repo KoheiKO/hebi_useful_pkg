@@ -10,7 +10,8 @@ bool triangle;
 bool square;
 bool l1;
 bool r1;
-
+bool dir_up;
+bool dir_down;
 
 void joy_callback(const sensor_msgs::Joy &joy_msg)
 {
@@ -24,6 +25,8 @@ void joy_callback(const sensor_msgs::Joy &joy_msg)
   ROS_INFO("square:%d", joy_msg.buttons[3]);   
   ROS_INFO("l1:%d", joy_msg.buttons[4]);
   ROS_INFO("r1:%d", joy_msg.buttons[5]);  
+  ROS_INFO("dir_up:%d", joy_msg.buttons[13]);
+  ROS_INFO("dir_down:%d", joy_msg.buttons[14]); 
   l_h = joy_msg.axes[0];  
   l_v = joy_msg.axes[1];
   cross = joy_msg.buttons[0];   
@@ -32,7 +35,8 @@ void joy_callback(const sensor_msgs::Joy &joy_msg)
   square = joy_msg.buttons[3];   
   l1 = joy_msg.buttons[4];
   r1 = joy_msg.buttons[5];
-  
+  dir_up = joy_msg.buttons[13];
+  dir_down = joy_msg.buttons[14];  
 }
 
 int main(int argc, char **argv)
@@ -56,6 +60,8 @@ int main(int argc, char **argv)
     msg.square = square;
     msg.l1 = l1;
     msg.r1 = r1;
+    msg.dir_up = dir_up;
+    msg.dir_down = dir_down;
     pub.publish(msg);
 
     ros::spinOnce();
