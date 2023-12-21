@@ -3,6 +3,7 @@
 #include "hebi_useful_pkg/steer_rot.h"
 #include <math.h>
 #include <cmath>
+#include "geometry_msgs/Point.h"
 
 float x;
 float y;
@@ -20,6 +21,8 @@ double ini_rot_z;
 double ini_rot_w;
 double ini_yaw;
 double time_in_seconds;
+float coord_x;
+float coord_y;
 
 void t_Callback(const tf2_msgs::TFMessage::ConstPtr& msg) {
     // 最初のトランスフォームの情報だけを処理
@@ -50,20 +53,30 @@ void t_Callback(const tf2_msgs::TFMessage::ConstPtr& msg) {
     }
 }
 
+void surveyPointCallback(const geometry_msgs::Point::ConstPtr& msg)
+{
+    // ここで受信したメッセージを処理する
+
+    coord_x = msg->x;
+    coord_y = msg->y;
+    ROS_INFO("Received survey point: x=%f, y=%f, z=%f", msg->x, msg->y, msg->z);
+}
 
 int main(int argc, char **argv){
     // ROSノードの初期化
     ros::init(argc, argv, "steer_rotation_pub");
-    ros::NodeHandle steer_rot;
+    ros::NodeHandle nh;
     ros::Time current_time = ros::Time::now();
     time_in_seconds = current_time.toSec();
     // トピックのサブスクライバーの作成
-    ros::Subscriber sub = steer_rot.subscribe<tf2_msgs::TFMessage>("/tf", 100, t_Callback);
-    ros::Publisher pub = steer_rot.advertise<hebi_useful_pkg::steer_rot>("/steer_rot",1000);
-    
+    ros::Subscriber sub = nh.subscribe<tf2_msgs::TFMessage>("/tf", 100, t_Callback);
+    ros::Publisher pub = nh.advertise<hebi_useful_pkg::steer_rot>("/steer_rot",1000);
+    ros::Subscriber coord_sub = nh.subscribe("/survey_point", 10, surveyPointCallback);
     ros::Rate loop_rate(100);  // Set the loop rate to 100Hz
 
     while (ros::ok()) {
+        goal_x = coord_x;
+        goal_y = coord_y;
         hebi_useful_pkg::steer_rot msg;
         auto delta_yaw = yaw - ini_yaw;
         auto theta = atan2((goal_y - y), (goal_x - x));
