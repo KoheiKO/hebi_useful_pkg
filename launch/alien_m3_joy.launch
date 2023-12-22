@@ -31,7 +31,7 @@
             type="joy_node"
             
             output="screen">
-            <param name="dev" type="string" value="/dev/input/js0"/>
+            <param name="dev" type="string" value="/dev/input/js2"/>
         </node>
 
 
