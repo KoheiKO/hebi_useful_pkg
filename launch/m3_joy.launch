@@ -14,6 +14,13 @@
         </node> -->
 
         <node pkg="hebi_useful_pkg" 
+            name="m3_joy" 
+            type="m3_joy"
+            output="screen">
+        </node>
+        
+
+        <node pkg="hebi_useful_pkg" 
             name="joy_pubsub_node" 
             type="joy_pubsub_node"
             output="screen">
@@ -33,8 +40,5 @@
             output="screen">
             <param name="dev" type="string" value="/dev/input/js0"/>
         </node>
-
-
-
 
 </launch>
