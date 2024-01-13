@@ -20,6 +20,17 @@
         </node>
         
 
+        <node pkg="hebi_useful_pkg" 
+            name="joy_pubsub_node" 
+            type="joy_pubsub_node"
+            output="screen">
+        </node>
+        
+        <node pkg="hebi_useful_pkg" 
+            name="steer_rotation_pub" 
+            type="steer_rotation_pub"
+            output="screen">
+        </node>
 
 
 </launch>

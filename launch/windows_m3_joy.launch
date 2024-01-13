@@ -13,7 +13,7 @@
             output="screen">
         </node> -->
 
-        <node pkg="hebi_useful_pkg" 
+        <!-- <node pkg="hebi_useful_pkg" 
             name="joy_pubsub_node" 
             type="joy_pubsub_node"
             output="screen">
@@ -23,7 +23,7 @@
             name="steer_rotation_pub" 
             type="steer_rotation_pub"
             output="screen">
-        </node>
+        </node> -->
 
 
         <node pkg="joy" 
@@ -31,7 +31,7 @@
             type="joy_node"
             
             output="screen">
-            <param name="dev" type="string" value="/dev/input/js0"/>
+            <param name="dev" type="string" value="/dev/input/js2"/>
         </node>
 
 
