@@ -1,0 +1,25 @@
+<launch>
+
+        <!-- <node pkg=" package name " 
+            name="node name" 
+            type="file name"
+            output="screen">
+        </node> -->
+
+
+        <!-- <node pkg="hebi_useful_pkg" 
+            name="hebi_control" 
+            type="hebi_control"
+            output="screen">
+        </node> -->
+
+        <node pkg="hebi_useful_pkg" 
+            name="m3_joy" 
+            type="m3_joy"
+            output="screen">
+        </node>
+        
+
+
+
+</launch>
